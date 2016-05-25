@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact us</title>
+    <link rel="stylesheet" href="styles/basic.css" />
+    <script src="scripts/global.js"></script>
+</head>
+<body>
+<div id="header"></div>
+<div id="navigation">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="photo.html">Photos</a></li>
+        <li><a href="live.html">Live</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</div>
+<div id="content">
+    <h1>Contact us!</h1>
+    <form method="post" action="#">
+        <fieldset>
+            <p>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your name" class="required" />
+            </p>
+            <p>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Email" class="email required" />
+            </p>
+            <p>
+                <label for="message">Message:</label>
+                <textarea cols="45" rows="7" id="message" name="message" class="required" placeholder="Write your message here"></textarea>
+
+            </p>
+            <input type="submit" value="Send" />
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

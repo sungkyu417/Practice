@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input{
+            color: #cad9ea;
+        }
+        input.txt{
+            border: 1px inset #cad9ea;
+            background-color: aquamarine;
+        }
+        input.btn{
+            color: #00008b;
+            background-color: antiquewhite;
+            border: 1px outset #cad9ea;
+            padding: 1px 2px 1px 2px;
+        }
+        select{
+            width: 80px;
+            color: #00008b;
+            background-color: antiquewhite;
+            border: 1px solid #cad9ea;
+        }
+        textarea{
+            width: 200px;
+            height: 40px;
+            color: antiquewhite;
+            border: 1px inset #cad9ea;
+        }
+    </style>
+</head>
+<body>
+<h3>聊天室注册页面</h3>
+<table border="1" width="45%">
+    <form method="post">
+       <tr>
+           <td width="30%">昵称：</td>
+           <td><input class="txt">1-20个字符<div id="qq"></div></td>
+       </tr>
+        <tr>
+            <td>密码：</td>
+            <td><input type="password">长度为6-16位</td>
+        </tr>
+        <tr>
+            <td>确认密码：</td>
+            <td><input type="password"></td>
+        </tr>
+        <tr>
+            <td>姓名：</td>
+            <td><input name="username"></td>
+        </tr>
+        <tr>
+            <td>性别：</td>
+            <td>
+                <select><option selected>男</option><option>女</option></select>
+            </td>
+        </tr>
+        <tr>
+            <td>邮件地址：</td>
+            <td><input type="email"></td>
+        </tr>
+        <tr>
+            <td>备注：</td>
+            <td><textarea cols="35" rows="10"></textarea></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="提交" class="btn"></td>
+            <td><input type="reset" value="重置"></td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

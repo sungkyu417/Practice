@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Schedule</title>
+</head>
+<body>
+<h1>Appointment Schedule</h1>
+<form>
+    <fieldset>
+        <legend>Personal Information</legend>
+        <p><label>Name <input type="text" name="name" required></label></p>
+        <p><label>Telephone number <input type="tel" name="phone" required pattern="[2-9][0-9]{2}-[0-9]{3}-[0-9]{4}" title="North American format:XXX-XXX-XXXX"></label></p>
+        <p><label>Date of birth <input type="date" name="dob"></label></p>
+    </fieldset>
+    <fieldset>
+        <legend>Appointment Request</legend>
+        <p><label for="reason">What is the reason for your visit?</label>
+        <datalist id="reasons">
+            <select name="reason">
+                <option>r1</option>
+                <option>r2</option>
+                <option>r3</option>
+            </select>
+            if other,please specify:
+
+        </datalist>
+        <input id="reason" name="reason" list="reasons"></p>
+        <p><label>Current pain level <input type="range" name="pain" max="10" min="0" step="0.5" value="5" title="0 is no pain,10 is the worst pain"></label></p>
+        <p><label>Preferred date <input type="date" name="date" required min="2001-03-15" max="2011-03-15"></label></p>
+        <p><label>Preferred time <input type="time" name="time" required min="08:00" max="18:00" step="1:00"></label></p>
+    </fieldset>
+    <input type="submit" value="Submit" />
+</form>
+</body>
+</html>

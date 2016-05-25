@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <script src="jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("h1").click(function(){
+                $(this).hide();
+            });
+        });
+    </script>
+    <style>
+        body{
+            background-image: url("../sk/1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        body h1{
+            border-style: dashed;
+            border-color: aqua;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to Web World!</h1>
+<p>点击标题可关闭</p>
+</body>
+</html>

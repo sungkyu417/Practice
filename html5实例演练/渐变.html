@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>渐变</title>
+</head>
+<body>
+<canvas id="canvas" width="640" height="480"></canvas>
+<script>
+    var cxt=document.getElementById("canvas").getContext("2d");
+    var grd=cxt.createLinearGradient(0,200,200,0);
+    grd.addColorStop(0,'#000');
+    grd.addColorStop(.5,'#fff');
+    grd.addColorStop(1,'#000');
+    cxt.fillStyle=grd;
+    cxt.strokeStyle='#09c';
+    cxt.lineWidth=5;
+    cxt.fillRect(0,0,200,200);
+    cxt.closePath();
+
+    var grd=cxt.createRadialGradient(300,250,2,200,200,250);
+    grd.addColorStop(0,'#ccc');
+    grd.addColorStop(1,'#000');
+    cxt.fillStyle=grd;
+    cxt.fillRect(200,200,200,200);
+    cxt.closePath();
+
+    cxt.beginPath();
+    cxt.moveTo(100,0);
+    cxt.lineTo(150,50);
+    cxt.lineTo(200,0);
+    cxt.closePath();
+    cxt.strokeStyle='#000';
+    cxt.lineWidth=3;
+    cxt.fillStyle='#ccc';
+    cxt.fill();
+    cxt.stroke();
+</script>
+</body>
+</html>

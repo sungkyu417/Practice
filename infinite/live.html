@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Concerts</title>
+    <link rel="stylesheet" href="styles/basic.css" />
+
+    <script src="scripts/global.js"></script>
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body  ng-app="myApp" ng-controller="liveCtrl">
+
+<div ng-include="'headerAndNav.html'"></div>
+<div id="content">
+    <h1>Concert dates</h1>
+    <table>
+        <thead>
+        <tr>
+            <td>Date</td>
+            <td>City</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="x in lives">
+            <td>{{x.date}}</td>
+            <td>{{x.country}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="scripts/concerts.js"></script>
+</body>
+</html>

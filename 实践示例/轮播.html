@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播插件</title>
+    <script src="jquery.js"></script>
+    <script>
+        ;(function($){
+            var Move= function(conobj,ulobj,liobj,setting){
+                this.self=conobj;      //获得容器
+                this.ulCon=ulobj;
+                this.picCon=liobj;  //获得图片容器
+                this.picLen=this.picCon.length;   //获得图片的数量
+                this.DefaultSetting={
+                    "overflow":"hidden",
+                    "float":"left",
+                    "marginLeft":"auto",
+                    "marginRight":"auto"
+                };
+                this.setting = setting;
+                this.setSettingValue();           //设置值
+            }
+            Move.prototype={
+                //设置值
+                setSettingValue:function(){
+                    this.self.css({
+                        //设置
+                        width:this.setting.width,
+                        height:this.setting.height,
+                        //默认
+                        overflow:this.DefaultSetting.overflow,
+                        marginLeft:this.DefaultSetting.marginLeft,
+                        marginRight:this.DefaultSetting.marginRight
+                    });
+                    this.ulCon.css({
+                        width:this.setting.picwidth*this.picLen   //ul的宽度设置为图片的宽度乘以图片的数量
+                    });
+                    this.picCon.css({
+                        width:this.setting.picwidth,
+                        height:this.setting.picheight,
+                        //默认
+                        overflow:this.DefaultSetting.overflow,
+                        float:this.DefaultSetting.float
+                    });
+                },
+                //自动切换  参数time:切换时差
+                autoMove:function(time){
+                    var i=1;
+                    var obj=this.self;
+                    var len=this.picLen;
+                    var picWidth=this.setting.picwidth;
+                    setTimeout(changePic,time);
+                    function changePic(){
+                        if(i==len-1){
+                            obj.animate({scrollLeft:picWidth*i},500).animate({scrollLeft:0},0);
+                        }
+                        else{
+                            obj.animate({scrollLeft:picWidth*i},500);
+                        }
+                        if(i!=len-1){
+                            i++;
+                        }
+                        else{
+                            i=1;
+                        }
+                        setTimeout(changePic,time);
+                    }
+                }
+            }
+            window["Move"]=Move;
+        })(jQuery)
+    </script>
+    <style>
+        *
+        {
+            padding: 0;
+            margin:0;
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div class="btn prev-btn"></div>
+    <ul class="ul-container">
+        <li class="pic-container"><a href="#"><img alt="火星时代" src="http://ubmcmm.baidustatic.com/media/v1/0f0000JeC2adODK9Catlds.jpg"></a></li>
+        <li class="pic-container"><a href="#"><img alt="智能社" src="http://ubmcmm.baidustatic.com/media/v1/0f000PLHky9rqu2h7ncy0s.jpg"></a></li>
+        <li class="pic-container"><a href="#"><img alt="极客学院" src="http://ubmcmm.baidustatic.com/media/v1/0f000jtI4VTomJjsyV6mi6.jpg"></a></li>
+        <li class="pic-container"><a href="#"><img alt="来网易学前端" src="http://ubmcmm.baidustatic.com/media/v1/0f000nTu6xUJA7Pfpq-CM0.jpg"></a></li>
+        <li class="pic-container"><a href="#"><img alt="珠峰培训" src="http://ubmcmm.baidustatic.com/media/v1/0f0007iyjCsRkBDDFI8jpf.png"></a></li>
+        <li class="pic-container"><a href="#"><img alt="火星时代" src="http://ubmcmm.baidustatic.com/media/v1/0f0000JeC2adODK9Catlds.jpg"></a></li>
+    </ul>
+    <div class="btn next-btn"></div>
+</div>
+<script>
+    $(function(){
+        var setting={
+            "width":1200,		   //外容器可见的宽度
+            "height":358,		   //外容器可见的高度
+            "picwidth":1200,	   //图片容器的宽度
+            "picheight":358,	   //图片容器的高度;
+        };
+        var conobj=$("#container");
+        var ulobj=$(".ul-container");
+        var liobj=$(".pic-container")
+        var text=new Move(conobj,ulobj,liobj,setting);
+        text.autoMove(1000);
+</script>
+</body>
+</html>

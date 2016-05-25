@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+
+
+<div ng-app="myApp" ng-controller="costCtrl">
+    number:<input type="number" ng-model="quantity">
+    price:<input type="number" ng-model="price">
+    <p>Sum:{{(quantity*price)|currency}}</p>
+</div>
+<div ng-app="myName" ng-controller="nameCtrl">
+    <ul>
+        <li ng-repeat="x in names">
+            {{x.name+','+x.country}}
+        </li>
+    </ul>
+</div>
+<div ng-app="myTime" ng-controller="timeCtrl">
+    <p>Time now:</p>
+    <h2>{{theTime}}</h2>
+</div>
+<script>
+/*
+    var app=angular.module('myApp',[]);
+    app.controller('costCtrl',function($scope){
+        $scope.quantity=1;
+        $scope.price=9;
+    });
+    var app1=angular.module('myName',[]);
+    app1.controller('nameCtrl',function($scope){
+        $scope.names=[
+            {name:'SK',country:'Korean'},
+            {name:'SXL',country:'China'}
+        ];
+    });*/
+    var app2=angular.module('myTime',[]);
+    app2.controller('timeCtrl',function($scope,$interval){
+        $scope.theTime=new Date().toLocaleTimeString();
+        $interval(function(){
+            $scope.theTime=new Date().toLocaleTimeString();
+        },1000);
+    });
+</script>
+</body>
+</html>

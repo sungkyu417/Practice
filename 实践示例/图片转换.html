@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D拖拽相册</title>
+    <style type="text/css">
+        body{
+            background-color:#000;
+        }
+        *{
+            padding:0px;
+            margin:0px;
+        }
+        #perspective{
+            perspective: 1000px; /*设置视角距舞台的距离还可已设置是否透视，默认为否*/
+        }
+        #wrap{
+            width:133px; /*外包装*/
+            height:200px;
+            position:relative;
+            top:0;
+            left:0;
+            margin:50px auto;
+            transform-style:preserve-3D;
+            transform:rotateX(-10deg);
+        }
+        #wrap img{
+            width:100%;
+            height:100%;
+            position:absolute;
+            top:0px;
+            left:0px;
+            border-radius:6px;
+            box-shadow:0px 0px 15px #00FA9A;
+            box-reflect:below 6px  -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(white));/*倒影*/
+            -webkit-box-reflect:below 6px  -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(white));	/*倒影*/
+            -moz-box-reflect:below 6px  -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(white)); /*很遗憾，火狐不支持*/
+            cursor:pointer; /*手型*/
+        }
+    </style>
+</head>
+<body>
+<div id="perspective"> <!-- 相当于舞台 -->
+    <div id="wrap">   <!-- 相当于外包装 -->
+        <img src="../sk/1.jpg"/>
+        <img src="../sk/2.jpg"/>
+        <img src="../sk/3.jpg"/>
+        <img src="../sk/5.jpg"/>
+        <img src="../sk/6.jpg"/>
+        <img src="../sk/7.jpg"/>
+        <img src="../sk/9.jpg"/>
+        <img src="../sk/10.jpg"/>
+        <img src="../sk/11.jpg"/>
+        <img src="../sk/12.jpg"/>
+        <img src="../sk/13.jpg"/>
+    </div>
+</div>
+<script type="text/javascript">
+    /*
+     总结：
+     首先将每个图片赋值一个不同的角度和一个偏移位置
+     然后在拖放时实时更新这个角度和偏移量
+     在拖放结束时逐渐减小这个角度和偏移量
+     也可以做成只在平面转动的，只要不改变rotateX就行
+     */
+    window.onload =function(){
+        var wrapDom = document.querySelector("#wrap"); //获取wrap
+        var imgDom = document.getElementsByTagName("img");//获取wrapimg
+        var wrap = document.getElementById('wrap');
+        var len = imgDom.length;//获取img的长度
+        var imgDeg = 360/len; //平分360度
+        for(var i=0;i<len;i++){  //分别赋值每个img一个rotateY(沿Y轴转动)和translateZ(偏移位置)
+            imgDom[i].style.transform= "rotateY("+i*imgDeg+"deg) translateZ(350px)";
+            imgDom[i].style.transition ="transform 1s "+(len-1-i)*0.2+"s";
+        }
+        var lastx,lasty,nowx,nowy,changeX,changeY,roX=-10;roY=0; //初始化新旧鼠标坐标 每次改变坐标大小 和rotateX和rotateY初始值
+
+        center(); //执行函数
+        window.onresize =center;//当缩放窗口时调用函数
+        function center(){ // 垂直居中啊
+            var mt = window.innerHeight/2-wrapDom.offsetHeight;  //获取窗口高度除以二再减去容器高度=容器顶距窗口顶的距离
+            wrapDom.style.cssText = "margin-top:"+mt+"px";
+        }
+        setTimeout(function(){
+            wrap.style.backgroundImage = "url(./img/12.jpg)";
+        },2000)
+
+        document.onmousedown = function(e){
+            clearInterval(timer)
+            var timer = null;
+            var ev = e||window.event;//兼容事件
+            lastx = ev.clientX;  //当前鼠标位置
+            lasty = ev.clientY;
+            this.onmousemove = function(e){
+
+                clearInterval(timer)
+                var ev = e||window.event;
+                var nowx = ev.clientX; //现在鼠标位置
+                var nowy = ev.clientY;
+                changeX=nowx-lastx;   //x轴变化了多少
+                changeY=nowy-lasty;	//y轴变化了多少
+                roY+=changeX*0.1;		//调节转的速度
+                roX-=changeY*0.1;		//调节转的速度
+
+                wrapDom.style.transform="rotateX("+roX+"deg) rotateY("+roY+"deg)"; //赋值新的rotateX和rotateY
+                lastx=nowx;  //将旧的数据更新
+                lasty=nowy;	//将旧的数据更新
+
+            }
+            this.onmouseup = function(){
+                this.onmousemove = null;	//取消移动事件
+                timer=setInterval(function(){	//设定时器逐渐减小rotateX和rotateY
+                    changeX*=0.95;  //每30毫秒rotateX减少5%
+                    changeY*=0.95;	//每30毫秒rotateY减少5%
+                    roY+=changeX*0.2; //调节转的速度
+                    roX-=changeY*0.2; //调节转的速度
+                    wrapDom.style.transform="rotateX("+roX+"deg) rotateY("+roY+"deg)";//赋值新的rotateX和rotateY
+
+                },30)
+            }
+            return false; //取消默认事件
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sungkyu</title>
+    <script>
+        function displayAbbr(){
+            var abbr=document.getElementsByTagName("abbr");
+            if(abbr.length<1)return false;
+
+            var defs=new Array();
+            for(var i=0;i<abbr.length;i++){
+                var def=abbr[i].getAttribute("title");
+                var key=abbr[i].lastChild.nodeValue;
+                defs[key]=def;
+            }
+            var dlist=document.createElement("dl");
+            for(key in defs){
+                var def=defs[key];
+               var dtitle=document.createElement("dt");
+               var dtitle_text=document.createTextNode(key);
+                dtitle.appendChild(dtitle_text);
+                var ddef=document.createElement("dd");
+                var ddef_text=document.createTextNode(def);
+                ddef.appendChild(ddef_text);
+                dlist.appendChild(dtitle);
+                dlist.appendChild(ddef);
+            }
+            var header=document.createElement("h2");
+            var header_text=document.createTextNode("Abbreviations");
+            header.appendChild(header_text);
+            document.body.appendChild(header);
+            document.body.appendChild(dlist);
+        }
+        window.onload= function (){
+            displayAbbr();
+        }
+    </script>
+    <style>
+        body{
+            font-family: Helvetica,Arial,SansSerif;
+            font-size: 10pt;
+        }
+        abbr{
+            text-decoration: none;
+            border: none;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+<h1>The best singer and leader!</h1>
+<p>
+    Since I was abstracted in <abbr title="korean population">k-pop</abbr>,I have been loving <abbr title="Kim Sungkyu">KSK</abbr> for a long time.
+</p>
+<p>In my opinion,he is the best idol and singer for his voice,character,appearance,small eyes and great charisma!
+    I love his albums very much.The song,<abbr title="The title of second album">Kontrol</abbr>,is the first korean song I can sing along with.</p>
+</body>
+</html>

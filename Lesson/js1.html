@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function  isLeapYear(){
+            var year=document.myForm.year.value;
+            if(year%400==0||year%4==0&year%100!=0){
+                alert("是闰年");
+            }else {
+                alert("不是闰年");
+            }
+        }
+    </script>
+</head>
+<body>
+<form method="get" name="myForm" action="">
+<p>输入年份：
+    <input type="text" name="year">
+    <input type="button" value="是否闰年" onclick="isLeapYear()">
+</p>
+    </form>
+</body>
+</html>
