@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul li{
+            list-style: none;
+            text-decoration-line: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        body{
+            font: 0.8em Arial,Helvetica,sans-serif;
+            line-height: 1.4em;
+            display: -webkit-box;
+            -webkit-box-orient:horizontal;
+            -webkit-box-pack: center;
+            background: #ffffaa;
+            background: url("../sk/1.jpg");
+            opacity: 0.6;
+        }
+        #page{
+            max-width: 1000px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-box-flex: 1;
+
+        }
+        header{
+
+            display: block;
+            padding: 10px;
+            background: #efefef;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 3px;
+        }
+        header .title{
+            float: left;
+            margin-left: 10px;
+
+        }
+        header ul li{
+            display: block;
+            float: right;
+            width: 100px;
+            padding: 10px;
+            text-align: center;
+        }
+        header ul li a{
+            display: block;
+            padding: 0;
+        }
+        header ul li:hover{
+            background-color:#ffc;
+            transform: scale(1.2);
+        }
+        footer{
+            display: block;
+            padding: 10px;
+            background: #efefef;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            margin-top: 3px;
+        }
+        #main{
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-flex: 1;
+            -webkit-box-direction: reverse;
+        }
+        section{
+            display: block;
+        }
+        #content{
+            padding: 0 20px 10px 10px;
+            background: #eeeeee;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-box-flex: 1;
+            -webkit-box-direction: normal;
+        }
+        #content article{
+            display: block;
+            margin: 0.5em 0;
+            -webkit-box-ordinal-group: 2;
+        }
+        #content article h2{
+            margin-top: 0;
+        }
+        #content nav{
+            border-top:1px solid #ccc;
+            padding-top:10px ;
+            margin-top: 10px;
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-ordinal-group: 2;
+        }
+        #content nav a{
+            display:block;
+            -webkit-box-flex: 1;
+        }
+        #content nav a:last-child{text-align: right}
+        #content #topgroup{
+            -webkit-box-ordinal-group: 1;
+            box-shadow: 0 0 5px #ecc;
+            border-radius: 5px;
+            border: 1px solid #ffc;
+            padding: 10px;
+        }
+        #content #topgroup h2{
+            margin-top: 0;
+        }
+        #sidebar{
+            width: 180px;
+            padding: 10px;
+            background: #ffc;
+            border-right: 1px solid #ccc;
+        }
+        #sidebar div:first-of-type h2:first-of-type{margin-top: 0;}
+        #sidebar ul{
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+
+        }
+        #sidebar ul li{
+            margin-top: 10px;
+        }
+        #sidebar form{
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+        }
+        #sidebar form input[type="text"]{
+            -webkit-box-flex: 1;
+            border-radius: 3px;
+        }
+        #sidebar form input[type="submit"]{
+            margin-top: 10px;
+        }
+        #sidebar div:nth-child(2){
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="page">
+    <header>
+        <div class="title">
+        <h1>Title</h1>
+        <p>Abstract</p>
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">My Page</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </header>
+    <div id="main">
+        <section id="content">
+            <article>
+                <h2>title</h2>
+                <p>content</p>
+            </article>
+            <article id="topgroup">
+                <h2>title</h2>
+                <p>content</p>
+            </article>
+            <nav>
+                <a href="#">previous</a>
+                <a href="#">next</a>
+            </nav>
+        </section>
+        <section id="sidebar">
+            <div>
+                <h2><label for="search"></label></h2>
+                <form action="#">
+                    <input type="text" id="search"  placeholder="search"/>
+                    <input type="submit" value="search" />
+                </form>
+            </div>
+            <div>
+                <h2>Links</h2>
+                <ul>
+                    <li><a href="#">link1</a></li>
+                    <li><a href="#">link2</a></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>footer1</p>
+        <p>footer2</p>
+    </footer>
+</div>
+</body>
+</html>

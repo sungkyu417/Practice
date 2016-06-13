@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Picures Wall</title>
+    <style>
+        body{
+            background-color: #000;
+        }
+        ul.pictures li{
+            display: inline;
+        }
+        ul.pictures a{
+            display: inline;
+            background: #fff;
+            float: left;
+            margin: 0 0 27px 30px;
+            width: auto;
+            padding: 10px 10px 15px;
+            text-align: center;
+            font-family: "Marker Felt",sans-serif;
+            text-decoration: none;
+            color: #333;
+            font-size: 18px;
+            box-shadow: 0 3px 6px rgba(0,0,0,.25);
+            transition: transform .15s linear;
+            transform: rotate(-2deg);
+
+        }
+        ul.pictures img{
+            display: block;
+            height: 100px;
+            margin-bottom: 12px;
+        }
+        ul.pictures a:after{
+            content: attr(title);
+        }
+        ul.pictures li:nth-child(even) a{
+            transform: rotate(5deg);
+        }
+        ul.pictures li:nth-child(3n) a{
+            position: relative;
+            top: -5px;
+            transform: none;
+        }
+        ul.pictures li:nth-child(5n) a{
+            position: relative;
+            right: 5px;
+            transform: rotate(-10deg);
+        }
+        ul.pictures li:nth-child(8n) a{
+            position: relative;
+            right: 5px;
+            top: 8px;
+        }
+        ul.pictures li a:hover{
+            transform: scale(1.25);
+            box-shadow: 0 3px 6px rgba(0,0,0,.5);
+            position: relative;
+            z-index: 5;
+        }
+
+    </style>
+</head>
+<body>
+<ul class="pictures">
+    <li><a href="1" title="pic1"><img src="../sk/1.jpg" alt="sk1"/></a></li>
+    <li><a href="2" title="pic2"><img src="../sk/2.jpg" alt="sk2"/></a></li>
+    <li><a href="3" title="pic3"><img src="../sk/3.jpg" alt="sk3"/></a></li>
+    <li><a href="4" title="pic4"><img src="../sk/5.jpg" alt="sk4"/></a></li>
+    <li><a href="5" title="pic5"><img src="../sk/6.jpg" alt="sk5"/></a></li>
+    <li><a href="6" title="pic6"><img src="../sk/7.jpg" alt="sk6"/></a></li>
+    <li><a href="7" title="pic7"><img src="../sk/9.jpg" alt="sk7"/></a></li>
+    <li><a href="8" title="pic8"><img src="../sk/10.jpg" alt="sk8"/></a></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <title>demo</title>
+</head>
+<body>
+<div class="container-fluid pc">
+
+    <section class="row">
+        <button id="btn" style="width:100px;">发送</button>
+    </section>
+
+</div><!-- container-fluid -->
+<script type="text/javascript">
+    var test = {
+        node:null,
+        count:60,
+        start:function(){
+            //console.log(this.count);
+            if(this.count > 0){
+                this.node.innerHTML = this.count--+"秒重新发送";
+                var _this = this;
+                setTimeout(function(){
+                    _this.start();
+                },1000);
+            }else{
+                this.node.removeAttribute("disabled");
+                this.node.innerHTML = "再次发送";
+                this.count = 60;
+            }
+        },
+        //初始化
+        init:function(node){
+            this.node = node;
+            this.node.setAttribute("disabled",true);
+            this.start();
+        }
+    };
+    var btn = document.getElementById("btn");
+    btn.onclick = function(){
+        alert("发送成功...");
+        test.init(btn);
+    };
+</script>
+</body>
+</html>

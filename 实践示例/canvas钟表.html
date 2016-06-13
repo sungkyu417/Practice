@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>canvas时钟</title>
+</head>
+
+<body>
+<canvas width="1000" height="1000" id="clock">
+    您的浏览器版本太低，不支持显示时钟的canvas标签
+</canvas>
+<script>
+
+    // 使用闭包，封装canvas命令对象
+    var getCanvasCommand = function(canvas) {
+        ctx = canvas.getContext('2d');
+        var action = {
+
+            fill: function() {
+                ctx.fill();
+            },
+            fillStyle: function(color) {
+                ctx.fillStyle = color;
+            },
+            fillRect: function(x, y, width, height) {
+                ctx.fillRect(x, y, width, height);
+            },
+            fillText: function(text, x, y) {
+                ctx.fillText(text, x, y);
+            },
+
+            stroke: function() {
+                ctx.stroke();
+            },
+            strokeStyle: function(c) {
+                ctx.strokeStyle = c;
+            },
+            strokeRect: function(x, y, width, height) {
+                ctx.strokeRect(x, y, width, height);
+            },
+            strokeText: function() {
+                ctx.strokeText.apply(ctx, arguments);
+            },
+
+            beginPath: function() {
+                ctx.beginPath();
+            },
+            closePath: function() {
+                ctx.closePath();
+            },
+
+            moveTo: function(x, y) {
+                ctx.moveTo(x, y);
+            },
+            lineTo: function(x, y) {
+                ctx.lineTo(x, y);
+            },
+            arc: function(x, y, r, begin, end, dir) {
+                ctx.arc(x, y, r, begin, end, dir);
+            },
+
+            translate: function(x, y) {
+                ctx.translate(x, y)
+            },
+            rotate: function(angle) {
+                ctx.rotate(angle)
+            },
+            lineWidth: function(w) {
+                ctx.lineWidth = w;
+            },
+            font: function(value) {
+                ctx.font = value;
+            },
+
+
+            clearRect: function() {
+                ctx.clearRect.apply(ctx, arguments);
+            },
+            restore: function() {
+                ctx.restore();
+            },
+            save: function() {
+                ctx.save();
+            }
+        };
+
+        return {
+            execute: function execute(msg) {
+                if (!msg) return;
+                if (Array.isArray(msg)) {
+                    msg.forEach(function(item) {
+                        execute(item);
+                    })
+                } else {
+                    msg.param = Array.isArray(msg.param) ? msg.param : [msg.param];
+                    action[msg.command].apply(action, msg.param);
+
+                }
+            }
+        }
+    };
+</script>
+<script>
+    /****helper****/
+// 一位数字补全，如 7 -> 07
+    function makeTwo(number) {
+        return number < 10 ? "0" + number :  number;
+    }
+
+    // 时钟对象
+    var clock = {
+
+        init: function(canvas) {
+            this.command = getCanvasCommand(canvas);
+            this.draw();
+        },
+
+        draw: function() {
+            this.drawFrame();
+            setInterval(this.drawFrame.bind(this),1000);
+        },
+
+        drawFrame: function() {
+            // 清空画布
+            this.clear();
+
+            // 画表盘
+            this.drawDial();
+
+            // 画刻度
+            this.drawIndex();
+
+            // 当前时间
+            var time = this.getTime();
+
+            // 画指针
+            this.drawHands(time);
+
+            // 绘制文字
+            this.drawText(time);
+        },
+
+        clear: function() {
+            this.command.execute({
+                command: 'clearRect',
+                param: [0, 0, 1000, 1000]
+            });
+        },
+
+        getTime: function() {
+            //获取系统当前时间（时 、分 、秒）
+            var now = new Date();
+            var sec = makeTwo(now.getSeconds());
+            var mins = makeTwo(now.getMinutes());
+            var hours = makeTwo(now.getHours());
+
+            return {
+                h: hours,
+                m: mins,
+                s: sec
+            };
+        },
+
+        drawDial: function() {
+            //画表盘
+            this.command.execute([
+                {
+                    command: 'beginPath'
+                }, {
+                    command: 'lineWidth',
+                    param: 10
+                }, {
+                    command: 'strokeStyle',
+                    param: '#000'
+                }, {
+                    command: 'arc',
+                    param: [300, 300, 200, 0, 360, false]
+                }, {
+                    command: 'stroke'
+                }, {
+                    command: 'closePath'
+                }
+            ]);
+        },
+
+        drawIndex: function() {
+            //时刻度
+            for (var i = 0; i < 12; i++) {
+                this.command.execute([
+                    {
+                        command: 'save'
+                    }, {
+                        command: 'translate',
+                        param: [300, 300]
+                    }, {
+                        command: 'lineWidth',
+                        param: 7
+                    }, {
+                        command: 'strokeStyle',
+                        param: "#000"
+                    }, {
+                        command: 'rotate',
+                        param: i * 30 * Math.PI / 180
+                    }, {
+                        command: 'beginPath'
+                    }, {
+                        command: 'moveTo',
+                        param: [0, -170]
+                    }, {
+                        command: 'lineTo',
+                        param: [0, -190]
+                    }, {
+                        command: 'closePath'
+                    }, {
+                        command: 'stroke'
+                    }, {
+                        command: 'restore'
+                    }
+                ]);
+            }
+
+            //分刻度
+            for (var j = 0; j < 60; j++) {
+                this.command.execute([
+                    {
+                        command: 'save'
+                    }, {
+                        command: 'translate',
+                        param: [300, 300]
+                    }, {
+                        command: 'lineWidth',
+                        param: 3
+                    }, {
+                        command: 'strokeStyle',
+                        param: "#000"
+                    }, {
+                        command: 'rotate',
+                        param: [j * 6 * Math.PI / 180]
+                    }, {
+                        command: 'beginPath'
+                    }, {
+                        command: 'moveTo',
+                        param: [0, -180]
+                    }, {
+                        command: 'lineTo',
+                        param: [0, -190]
+                    }, {
+                        command: 'closePath'
+                    }, {
+                        command: 'stroke'
+                    }, {
+                        command: 'restore'
+                    }
+                ]);
+            }
+        },
+
+        drawHands: function(time) {
+
+            //计算：满60分加一小时 字符串要转化为数字，不然有bug
+            var hours = time.h + time.m / 60;
+            //计算：将24小时制转化为12小时制
+            hours = hours > 12 ? hours - 12 : hours;
+
+            //时针
+            this.command.execute([
+                {
+                    command: 'save'
+                }, {
+                    command: 'translate',
+                    param: [300, 300]
+                }, {
+                    command: 'lineWidth',
+                    param: 7
+                }, {
+                    command: 'strokeStyle',
+                    param: "#000"
+                }, {
+                    command: 'rotate',
+                    param: [hours * 30 * Math.PI / 180]
+                }, {
+                    command: 'beginPath'
+                }, {
+                    command: 'moveTo',
+                    param: [0, 15]
+                }, {
+                    command: 'lineTo',
+                    param: [0, -120]
+                }, {
+                    command: 'closePath'
+                }, {
+                    command: 'stroke'
+                }, {
+                    command: 'restore'
+                }
+            ]);
+
+
+            //分针
+            this.command.execute([
+                {
+                    command: 'save'
+                }, {
+                    command: 'translate',
+                    param: [300, 300]
+                }, {
+                    command: 'lineWidth',
+                    param: 5
+                }, {
+                    command: 'strokeStyle',
+                    param: "#000"
+                }, {
+                    command: 'rotate',
+                    param: time.m * 6 * Math.PI / 180
+                }, {
+                    command: 'beginPath'
+                }, {
+                    command: 'moveTo',
+                    param: [0, 20]
+                }, {
+                    command: 'lineTo',
+                    param: [0, -160]
+                }, {
+                    command: 'closePath'
+                }, {
+                    command: 'stroke'
+                }, {
+                    command: 'restore'
+                }
+            ]);
+
+            //秒针
+            this.command.execute([
+                {
+                    command: 'save'
+                }, {
+                    command: 'translate',
+                    param: [300, 300]
+                }, {
+                    command: 'lineWidth',
+                    param: 5
+                }, {
+                    command: 'strokeStyle',
+                    param: ["#f00"]
+                }, {
+                    command: 'rotate',
+                    param: time.s * 6 * Math.PI / 180
+                }, {
+                    command: 'beginPath'
+                }, {
+                    command: 'moveTo',
+                    param: [0, 25]
+                }, {
+                    command: 'lineTo',
+                    param: [0, -165]
+                }, {
+                    command: 'closePath'
+                }, {
+                    command: 'stroke'
+                }, {
+                    command: 'fillStyle',
+                    param: "#fff"
+                }, {
+                    command: 'strokeStyle',
+                    param: "#f00"
+                }, {
+                    command: 'beginPath'
+                }, {
+                    command: 'arc',
+                    param: [0, 0, 6, 0, 360, false]
+                }, {
+                    command: 'fill'
+                }, {
+                    command: 'stroke'
+                }, {
+                    command: 'closePath'
+                }, {
+                    command: 'fillStyle',
+                    param: "#fff"
+                }, {
+                    command: 'beginPath'
+                }, {
+                    command: 'arc',
+                    param: [0, -140, 3, 0, 360, false]
+                }, {
+                    command: 'stroke'
+                }, {
+                    command: 'closePath'
+                }, {
+                    command: 'restore'
+                }
+            ]);
+        },
+
+        drawText: function(time) {
+            //绘制文字，显示系统当前时间
+            this.command.execute([
+                {
+                    command: 'save'
+                }, {
+                    command: 'translate',
+                    param: [0, 500]
+                }, {
+                    command: 'fillStyle',
+                    param: '#000'
+                }, {
+                    command: 'strokeStyle',
+                    param: '#fff'
+                }, {
+                    command: 'font',
+                    param: "24px 微软雅黑"
+                }, {
+                    command: 'strokeText',
+                    param: ["系统当前时间为：" + time.h + "时" + time.m + "分" + time.s + "秒", 100, 100]
+                }, {
+                    command: 'fillText',
+                    param: ["系统当前时间为：" + time.h + "时" + time.m + "分" + time.s + "秒", 100, 100]
+                }, {
+                    command: 'restore'
+                }
+            ]);
+        }
+    };
+
+    var canvas = document.getElementById("clock");
+    clock.init(canvas);
+</script>
+</body>
+</html>

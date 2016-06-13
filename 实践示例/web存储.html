@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web 存储</title>
+
+</head>
+<body class="aaa">
+<p><input type="text" id="name" class="ipt"></p>
+<p><input type="radio" class="sex" name="123" checked="checked">Male</p>
+<p><input type="radio" class="sex" name="123">Female</p>
+<p><textarea id="info"></textarea></p>
+<p>When you close browser or restart computer and open this page again,the data you input will be stored.</p>
+</body>
+<script src="../references/jquery.js"></script>
+<script>
+    if(typeof (Storage)!=="undefined"){
+        $(window).unload(function(){
+            alert("1");
+            if($("#name").val()){
+                localStorage.setItem("nVal",$("#name").val());
+            }else {
+                localStorage.setItem("nVal","");
+            }
+            if($("#info").val()){
+                localStorage.setItem("iVal",$("#info").val());
+            }else {
+                localStorage.setItem("iVal","");
+            }
+            $(".sex").each(function(i,item){
+                if($(item).attr("checked")){
+                    localStorage.setItem("sexI",i);
+                }
+            });
+        });
+        $(function(){
+            if(localStorage.getItem("nVal")){
+                $("#name").val(localStorage.getItem("nVal"));
+            }
+            if(localStorage.getItem("iVal")){
+                $("#info").val(localStorage.getItem("iVal"));
+            }
+            if(localStorage.getItem("sexI")){
+                $(".sex").eq(localStorage.getItem("sexI")).attr("checked","checked");
+            }
+        });
+    }else {
+        alert("Your browser does not support web storage");
+    }
+</script>
+</html>

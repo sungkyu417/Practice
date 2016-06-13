@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transform属性</title>
+    <style>
+        div{
+            position: absolute;
+            left: 100px;
+            top:100px;
+            width: 306px;
+            height: 226px;
+            background: #00ffff url("../sk/1.jpg") no-repeat;
+            background-size: cover;
+            transition: transform .5s ease-in,background .5s ease-in;
+        }
+        div:hover{
+           transform:rotate(180deg) scale(2);
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+</body>
+</html>

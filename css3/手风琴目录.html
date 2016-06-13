@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手风琴目录</title>
+    <style>
+        .accordion{
+            background: #eeeeee;
+            border: 1px solid #999999;
+            margin: 2em;
+        }
+        .accordion h2{
+            margin: 0;
+            padding: 12px 0;
+            background: #ccc;
+        }
+        .accordion .section{
+            border-bottom: 1px solid #ccc;
+            background: #ffffff;
+        }
+        .accordion h3{
+            margin: 0;
+            padding: 0;
+            background: #eeeeee;
+            padding: 3px 1em;
+        }
+        .accordion h3 a{
+            font-weight: normal;
+            text-decoration: none;
+        }
+        .accordion :target h3 a{font-weight: bold}
+        .accordion h3 +div{
+            height: 0;
+            padding: 0 1em;
+            overflow: hidden;
+            transition: height 0.3s ease-in;
+        }
+        .accordion h3+div img{margin: 4px}
+        .accordion :target h3+div{
+            height: 200px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="accordion">
+    <h2>手风琴折叠面板</h2>
+    <div id="one" class="section">
+        <h3><a href="#one">1</a></h3>
+        <div><img src="../sk/1.jpg" /></div>
+    </div>
+    <div id="two" class="section">
+        <h3><a href="#two">2</a></h3>
+        <div><img src="../sk/2.jpg" /></div>
+    </div>
+    <div id="three" class="section">
+        <h3><a href="#three">3</a></h3>
+        <div><img src="../sk/3.jpg" /></div>
+    </div>
+    <div id="four" class="section">
+        <h3><a href="#four">4</a></h3>
+        <div><img src="../sk/5.jpg" /></div>
+    </div>
+    <div id="five" class="section">
+        <h3><a href="#five">5</a></h3>
+        <div><img src="../sk/6.jpg" /></div>
+    </div>
+    <div id="six" class="section">
+        <h3><a href="#six">6</a></h3>
+        <div><img src="../sk/7.jpg" /></div>
+    </div>
+</div>
+</body>
+</html>

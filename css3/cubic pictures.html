@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cublic Pictures</title>
+    <style>
+        .cube{
+            position: fixed;
+            left: 50%;
+            top:15px;
+        }
+        .cube p{
+            line-height: 14px;
+            font-size: 12px;
+        }
+        .cube h2{
+            font-weight: bold;
+        }
+        .cube.one{
+            top:200px;
+            left: 50%;
+            margin-left: -200px;
+
+        }
+        .rightFace,.leftFace,.topFace div{
+            padding: 10px;
+            width: 180px;
+            height: 180px;
+            overflow: hidden;
+        }
+        .rightFace,.leftFace,.topFace{
+            position: absolute;
+        }
+        .cube:hover .rightFace,.cube:hover .leftFace,.cube:hover .topFace div{
+            background-color: #ffc;
+        }
+        .cube:hover .rightFace:hover,.cube:hover .leftFace:hover,.cube:hover .topFace:hover div{
+            background-color: #ffa;
+        }
+        .leftFace{
+            transform: skew(0deg,30deg);
+            background-color: #cccccc;
+        }
+        .rightFace{
+            transform: skew(0deg,-30deg);
+            background-color: #ddd;
+            left: 200px;
+        }
+        .topFace div{
+            transform: skew(0deg,-30deg) scale(1,1.16);
+            background-color: #eee;
+            font-size: 0.862em;
+        }
+        .topFace{
+            transform: rotate(60deg);
+            top:-158px;
+            left:100px;
+        }
+        .cube{
+            transition: transform 1s linear;
+        }
+        .cube:hover{
+            transform: translate(202px,115px);
+        }
+
+    </style>
+</head>
+<body>
+<div class="cube one">
+    <div class="topFace">
+        <div>
+            <h2>Top</h2>
+            <p><img src="../sk/1.jpg" /></p>
+        </div>
+    </div>
+    <div class="leftFace">
+        <div>
+            <h2>Left</h2>
+            <p><img src="../sk/2.jpg" /></p>
+        </div>
+    </div>
+    <div class="rightFace">
+        <div>
+            <h2>Right</h2>
+            <p><img src="../sk/3.jpg" /></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
