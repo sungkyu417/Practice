@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>一个简单的文字滚动效果</title>
+    <style>
+        #container{
+            width:500px;
+            height:300px;
+            margin:200px  auto;
+            border:1px solid #ddd;
+            text-align: center;
+            background-color:#eee;
+        }
+
+        .text{
+            width:200px;
+            height:30px;
+            overflow:hidden;
+            cursor:pointer;
+            margin:0 auto;
+        }
+
+        .text ul{
+             margin:0px;
+            padding:0px;
+            list-style:none;
+
+        }
+        .text ul li{
+            width:200px;
+            height:30px;
+            background:#333;
+            line-height:30px;
+
+
+        }
+
+    </style>
+</head>
+<body>
+<div id="container">
+<h1>文字滚动效果</h1>
+<div class="text">
+    <ul>
+        <li class="li1" style="color:orange">wellcoto</li>
+        <li ><a style="color:green" href="http://lmrone.top">http://lmrone.top</a></li>
+        <li  style="color:blue">web前端学习</li>
+    </ul>
+</div>
+</div>
+<script src="http://lmrone.top/templets/smallcase/jq.js"></script>
+<script >
+    $(function(){
+        //文字滚动的函数
+        function textslide(){
+
+            var height=($('.text ul li').height());//获取li的高度
+            //让第一个向上30px,完成之后，再把这个li添加到li的最后，然后把它的marginTop还原到0
+            $('.text ul li').eq(0).animate({marginTop:-height},function(){
+                $(this).remove().appendTo('.text ul').css({marginTop:0})
+            });
+
+        }
+        //每隔3s执行一次文字的滚动
+        var t=setInterval(textslide,1000);
+
+
+        //当鼠标触碰到text区域时，停止滚动，就需要清除计时器clearInterval
+
+        $('.text').hover(function(){
+           clearInterval(t);
+           //当鼠标离开text区域时，继续滚动
+        },function(){
+            t=setInterval(textslide,1000);
+        })
+
+
+    })
+
+</script>
+</body>
+</html>
