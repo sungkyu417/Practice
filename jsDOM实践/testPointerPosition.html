@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box" style="background-color: #33CCCC;height: 100px;width: 100px"></div>
+</body>
+<script src="../自建库/ADS.js"></script>
+<script>
+    ADS.addEvent(window,'load',function(){
+        var object=document.getElementById("box");
+        object.style.position='absolute';
+        function eventListener(W3CEvent){
+            var pointer=ADS.getPointerPosition(W3CEvent);
+            object.style.left=pointer.x+'px';
+            object.style.top=pointer.y+'px';
+        }
+        ADS.addEvent(document,'mousemove',eventListener);
+    });
+</script>
+</html>
